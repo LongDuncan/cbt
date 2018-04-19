@@ -1,0 +1,26 @@
+cluster:
+  head: 'mon-1'
+  clients: ['mon-1']
+  osds: ["mon-1","mon-2","mon-3"]
+  mons: ["mon-1","mon-2","mon-3"]
+  osds_per_node: 1
+  #user: 'root'
+  ceph.conf: '/etc/ceph/ceph.conf'
+  conf_file: '/etc/ceph/ceph.conf'
+  iterations: 3
+  tmp_dir: '/tmp/cbt/'
+  use_existing: True
+  pool_profiles:
+    replicated:
+      pg_size: 8
+      pgp_size: 8
+      replication: 'replicated'
+benchmarks:
+  radosbench:
+    op_size: [8192,4096 ]
+    write_only: False
+    time: 10
+    concurrent_ops: [ 1 , 2]
+    concurrent_procs: 2
+    use_existing: True
+    pool_profile: 'replicated'

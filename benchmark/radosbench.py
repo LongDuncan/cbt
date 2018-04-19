@@ -180,8 +180,11 @@ class Radosbench(Benchmark):
                                 found = 1
                         if found == 1:
                             line = line.strip()
-                            key, val = line.split(":")
-                            result[key.strip()] = val.strip()
+                            if 'Average IOPS' in line and ':' not in line:
+                                result['Average IOPS'] = line.split("Average IOPS")[1].strip()
+                            else:
+                                key, val = line.split(":")
+                                result[key.strip()] = val.strip()
                 with open(json_out_file, 'w') as json_fd:
                     json.dump(result, json_fd)
 
